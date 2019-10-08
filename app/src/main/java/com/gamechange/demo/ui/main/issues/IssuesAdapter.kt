@@ -8,13 +8,13 @@ import com.gamechange.demo.R
 import com.gamechange.demo.network.models.Issue
 import kotlinx.android.synthetic.main.item_issue.view.*
 
-class IssuesAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class IssuesAdapter(private var issueClickListener: IssueViewHolder.IssueClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var issues: List<Issue> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_issue, parent, false)
-        return IssueViewHolder(view)
+        return IssueViewHolder(view, issueClickListener)
     }
 
     override fun getItemCount() = issues.size
@@ -32,10 +32,16 @@ class IssuesAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    inner class IssueViewHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView){
+    class IssueViewHolder constructor(
+        itemView: View,
+        private val issueClickListener: IssueClickListener): RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         private val tvTitle = itemView.tvTitle!!
         private val tvBody = itemView.tvBody!!
+
+        init {
+            itemView.setOnClickListener(this)
+        }
 
         fun bind(issue: Issue){
             tvTitle.text = issue.title
@@ -44,6 +50,14 @@ class IssuesAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             } catch (e: IndexOutOfBoundsException) {
                 tvBody.text = issue.body
             }
+        }
+
+        override fun onClick(v: View) {
+            issueClickListener.onIssueClicked(adapterPosition)
+        }
+
+        interface IssueClickListener {
+            fun onIssueClicked(position: Int)
         }
     }
 }

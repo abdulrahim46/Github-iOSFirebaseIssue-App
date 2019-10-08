@@ -1,6 +1,6 @@
 package com.gamechange.demo.di
 
-import com.gamechange.demo.ui.main.CommentsFragment
+import com.gamechange.demo.ui.main.comments.CommentsFragment
 import com.gamechange.demo.ui.main.issues.IssuesFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

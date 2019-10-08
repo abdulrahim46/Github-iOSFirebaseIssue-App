@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">GameChange demo</string>
-    <string name="failed_to_get_issues_n_click_to_try_again">Failed to get issues.\n Click to try again</string>
+    <string name="failed_to_get_issues_n_click_to_try_again">Failed to fetch issues.\n Click to try again</string>
+    <string name="failed_to_get_comments_n_click_to_try_again">Failed to fetch comments.\n Click to try again</string>
     <string name="failed_to_fetch_issue_list">Failed to fetch issues</string>
-    <string name="feyching_github_issues">Fetching GitHub issues</string>
+    <string name="failed_to_fetch_comments">Failed to fetch comments</string>
+    <string name="fetching_github_issues">Fetching GitHub issues</string>
+    <string name="fetching_issue_comments">Fetching issue comments</string>
     <string name="no_issues_found">No issues found</string>
+    <string name="no_comments_found">No comments found</string>
 </resources>

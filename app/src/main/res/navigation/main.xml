@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/commentsFragment"
-        android:name="com.gamechange.demo.ui.main.CommentsFragment"
+        android:name="com.gamechange.demo.ui.main.comments.CommentsFragment"
         android:label="fragment_comments"
         tools:layout="@layout/fragment_comments" />
 </navigation>

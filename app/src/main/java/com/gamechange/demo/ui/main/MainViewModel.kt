@@ -32,6 +32,7 @@ class MainViewModel@Inject internal constructor(
                 override fun onSuccess(listResponse: Response<List<Issue>>) {
                     issues.clear()
                     issues.addAll(listResponse.body()!!)
+                    issues.sortByDescending { it.updatedAt }
                     successGetIssues.value = true
                 }
                 override fun onError(e: Throwable) {

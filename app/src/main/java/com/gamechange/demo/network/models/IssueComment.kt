@@ -6,7 +6,6 @@ data class IssueComment(
     val id: Int,
     val body: String,
     val user: User) {
-
     data class User(
         @SerializedName("login") val name: String
     )

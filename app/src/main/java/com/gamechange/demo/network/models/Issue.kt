@@ -7,5 +7,6 @@ data class Issue(
     val id: Int,
     val title: String,
     val body: String,
-    @SerializedName("updated_at") val updatedAt: Date
+    @SerializedName("updated_at") val updatedAt: Date,
+    val number: Int
 )

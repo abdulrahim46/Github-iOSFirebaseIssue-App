@@ -3,19 +3,21 @@ package com.gamechange.demo.ui.main.issues
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gamechange.demo.R
 import com.gamechange.demo.helper.TopSpacingItemDecoration
 import com.gamechange.demo.ui.base.BaseFragment
+import com.gamechange.demo.ui.main.MainActivity
 import com.gamechange.demo.ui.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_issues.*
 
-class IssuesFragment: BaseFragment() {
+class IssuesFragment: BaseFragment(), IssuesAdapter.IssueViewHolder.IssueClickListener {
 
     private val mainViewModel by lazy { ViewModelProviders.of(activity!!, providerFactory).get(MainViewModel::class.java) }
-    private val issuesAdapter by lazy { IssuesAdapter() }
+    private val issuesAdapter by lazy { IssuesAdapter(this) }
 
     override fun getLayoutResourceId() = R.layout.fragment_issues
 
@@ -26,13 +28,11 @@ class IssuesFragment: BaseFragment() {
         attachViewModel()
 
         if (mainViewModel.issues.isEmpty()) {
-            baseActivity.showProgressDialog(getString(R.string.feyching_github_issues))
+            baseActivity.showProgressDialog(getString(R.string.fetching_github_issues))
             mainViewModel.getIssues()
         } else {
             publishIssues()
         }
-
-        mainViewModel.getIssues()
     }
 
     private fun initViews() {
@@ -73,7 +73,7 @@ class IssuesFragment: BaseFragment() {
                 tvNoIssues.apply {
                     text = getString(R.string.failed_to_get_issues_n_click_to_try_again)
                     setOnClickListener {
-                        baseActivity.showProgressDialog(getString(R.string.feyching_github_issues))
+                        baseActivity.showProgressDialog(getString(R.string.fetching_github_issues))
                         mainViewModel.getIssues()
                     }
                 }
@@ -88,5 +88,19 @@ class IssuesFragment: BaseFragment() {
             tvNoIssues.visibility = View.GONE
             issuesAdapter.publishIssues(mainViewModel.issues)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        mainViewModel.successGetIssueComment.value = null
+        mainViewModel.issueComments.clear()
+    }
+
+    override fun onIssueClicked(position: Int) {
+        val bundle = bundleOf(
+            "issueNumber" to mainViewModel.issues[position].number
+        )
+        (activity as MainActivity).navController.navigate(R.id.action_issuesFragment_to_commentsFragment, bundle)
     }
 }
