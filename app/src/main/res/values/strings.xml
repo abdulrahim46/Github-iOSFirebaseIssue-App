@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GameChange demo</string>
+    <string name="failed_to_get_issues_n_click_to_try_again">Failed to get issues.\n Click to try again</string>
+    <string name="failed_to_fetch_issue_list">Failed to fetch issues</string>
+    <string name="feyching_github_issues">Fetching GitHub issues</string>
+    <string name="no_issues_found">No issues found</string>
 </resources>
